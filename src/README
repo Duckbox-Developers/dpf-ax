@@ -1,7 +1,7 @@
 This is rudimentary code to inject your own source into the AX206 based DPFs.
 It is fully Linux based for now.
 
-Update: Information about this chip is now available at openschemes.org.
+Update: Information about this chip is now available at openschemes.com
 Also, the full original SDK is published on their website, look for AX206.
 
 NEW: 
@@ -25,7 +25,7 @@ You can run the DPF firmware in various modes and options:
   will register as HID type with PID 3318.
   In Boot loader mode, you can also download small binaries into RAM and run
   them without touching the flash. This is useful for development. See
-  dpflib/bfload executable to download a RAM binary and run it.
+  dpflib/bload executable to download a RAM binary and run it.
 - Alternative firmware: Completely replaces internal firmware.
   From Version 0.3 up, two different firmware versions are available:
   - 'Developer' version: firmware with same features and look
@@ -153,7 +153,7 @@ DISCLAIMER: There is no guarantee that you will not brick your DPF.
 The Author(s) of this code take no responsibilities. You are completely on
 your own there!
 If you bricked your DPF: No worries, you can restore the old image using
-the restore.py script or the ProgSPI.exe Windows tool found at openschemes.org.
+the restore.py script or the ProgSPI.exe Windows tool found at openschemes.com
 
 ----------------------------------------------------------------------------
 
