@@ -107,7 +107,7 @@ Optionally:
 Usage
 ------
 
-1. run 'make' to build the tools, firmware and patches.
+1. run 'TYPE=<your type> make' to build the tools, firmware and patches; alternatively, you can customize Make.config for the default type.
 2. Initiate USB connection from the DPF via the menu
 3. Wait a while and check dmesg for the /dev/sgX assignment
 4. Run 'python identify.py /dev/sgX' as root (CAREFUL!!!) to probe for

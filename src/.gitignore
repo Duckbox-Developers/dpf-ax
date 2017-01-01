@@ -1,0 +1,13 @@
+*.rel
+*.rst
+*.d
+*.sym
+*.lst
+*.asm
+output.log
+tmp.lnk
+config.inc
+main.ihx
+main.mem
+main.map
+userconfig.h
