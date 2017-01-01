@@ -68,8 +68,6 @@ int main(int argc, char **argv)
 	int ret;
 	DPFHANDLE h;
 
-	int i = 2;
-
 	if (argc < 2 || argc > 3) {
 		fprintf(stderr, "Usage:\n"
 				"%s <generic scsi dev> <.ihx file>\n"
@@ -79,12 +77,13 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
+	char *hexFile;
 	if (argc == 2) {
 		ret = dpf_open(NULL, &h);
-		i--;
-	} else
-	if (argc == 3) {
+		hexFile = argv[1];
+	} else	if (argc == 3) {
 		ret = dpf_open(argv[1], &h);
+		hexFile = argv[2];
 	}
 
 	if (ret < 0) {
@@ -108,7 +107,7 @@ int main(int argc, char **argv)
 	 // demo0(h);
 
 	}
-	ret = load_hexfile(h, argv[i]);
+	ret = load_hexfile(h, hexFile);
 	code_go(h, 0x18a0);
 	if (ret < 0) printf("Failed.\n");
 

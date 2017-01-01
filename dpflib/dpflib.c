@@ -158,7 +158,7 @@ int flash_status_wait(DPFContext *h, uint8_t mask)
 {
 	int error;
 	uint8_t status;
-	
+
 	do {
 		error = h->methods.flash_status(h, &status);
 	} while ((status & mask) && !error);
@@ -174,9 +174,13 @@ int flash_write(DPFContext *h, const unsigned char *buf, ADDR offset, int len)
 
 	while (len > 0) {
 		error = h->methods.flash_cmd(h, SPM_WREN, 1, 0);
+		if (error < 0)
+			return error;
 		DEB(printf("Write pages at %06x\n", offset));
 		n = h->methods.flash_writechunk(h, buf, offset, len);
 		error = flash_status_wait(h, SPS_WIP);
+		if (error < 0)
+			return error;
 
 		if (n < 0) break;
 		len -= n; buf += n; offset += n;

@@ -23,7 +23,7 @@ fwload: fwload.o libdpf.a
 	$(CC) -o $@ fwload.o -L. -ldpf $(LIBS)
 
 bload.o: bootload.c
-	$(CC) -c -o $@ $(CFLAGS) -DTEST $<
+	$(CC) -c -o $@ $(CFLAGS) -DBLOAD $<
 
 bload: bload.o
 	$(CC) -o $@ $< -L. -ldpf $(LIBS)

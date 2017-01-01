@@ -116,7 +116,7 @@ int go_hid(DPFContext *dpf, ADDR jmpoffset)
 
 int load(DPFContext *dpf, FILE *f, uint16_t jmpoffset)
 {
-	int size;
+	int size, error;
 	UsbMsg umsg;
 
 	unsigned short offset = jmpoffset - 0x800;
@@ -131,10 +131,14 @@ int load(DPFContext *dpf, FILE *f, uint16_t jmpoffset)
 		umsg.u.loader.offset[1] = offset >> 8;
 		umsg.len = sizeof(UsbMsg) - BUFSIZE + size;
 		offset += size;
-		validate(&umsg);
-		transmit(dpf, &umsg);
+		error = validate(&umsg);
+		if (error < 0)
+			return error;
+		error = transmit(dpf, &umsg);
+		if (error < 0)
+			return error;
 		size = fread(umsg.u.loader.buf, 1, BUFSIZE, f);
-	} 
+	}
 
 	// And jump into the code:
 	if (jmpoffset != 0x0000) {
@@ -335,7 +339,7 @@ hid_methods = {
 };
 
 
-#ifdef TEST
+#ifdef BLOAD
 int main(int argc, char **argv)
 {
 	FILE *f;
@@ -355,7 +359,7 @@ int main(int argc, char **argv)
 			startaddr = strtol(argv[2], NULL, 16);
 			printf("Starting at %04x\n", startaddr);
 		}
-	
+
 		error = dpf_open("usb0", &dpf);
 		if (error < 0) {
 			printf("Failed to open DPF\n");
